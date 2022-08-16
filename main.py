@@ -36,10 +36,12 @@ class Tela:
         self.btn_der = tk.Button(self.frm_btn, text="Derrota +", bg="dodger blue", height=2, width=10, command=self.incrementar_der)
         self.btn_der.pack(side=tk.LEFT)
 
-        self.btn_vic_min = tk.Button(self.frm_btn, text="Vitoria -", bg="pale violet red", height=2, width=10, command=self.decrementar_vic)
-        self.btn_vic_min.pack(side=tk.LEFT)
-        self.btn_der_min = tk.Button(self.frm_btn, text="Derrota -", bg="pale violet red", height=2, width=10, command=self.decrementar_der)
-        self.btn_der_min.pack(side=tk.LEFT)
+       
+        self.btn_vic_min = tk.Button(self.frm_btn, text="Vitoria -", bg="pale violet red", height=1, width=10, command=self.decrementar_vic)
+        self.btn_vic_min.pack(side=tk.TOP)
+        self.btn_der_min = tk.Button(self.frm_btn, text="Derrota -", bg="pale violet red", height=1, width=10, command=self.decrementar_der)
+        self.btn_der_min.pack(side=tk.BOTTOM)
+
 
     def incrementar_vic(self):
         selecionado = self.tvw.selection()
