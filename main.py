@@ -1,64 +1,81 @@
 import tkinter as tk
 from tkinter import ttk
-from tkinter import messagebox
-
-
 class Tela:
     def __init__(self, master):
         self.janela = master
-        self.janela.title("Exemplo Treeview TABELA")
-        self.janela.geometry('480x280')
-        # -------------FRAME PADRÃO
-        self.frame = tk.Frame(self.janela)
-        self.frame.pack(side=tk.TOP)
-        # ------------FRAME DE BOTÕES
-        self.btn_frm = tk.Frame(self.janela)
-        self.btn_frm.pack(side=tk.BOTTOM)
-        #------------FRAME DO MAIS E MENOS
+        self.janela.geometry("840x620")
+        self.janela.title("BDB Registrer")
+#-----------TEMA -- EDIÇÃO DOS STYLES
+        s = ttk.Style()
+        s.theme_use('clam')
+#---------pra ficar GROSSO
+        s.configure('Treeview', rowheight=40)
+
+        colunas = ['Nomes', 'Vitorias', 'Derrotas']
+        self.frm = tk.Frame(self.janela)
+        self.frm.pack()
         self.frm_btn = tk.Frame(self.janela)
-        self.frm_btn.pack(side=tk.RIGHT)
+        self.frm_btn.pack()
 
-
-        colunas = ["Nome", 'Vitorias', 'Derrotas']
-
-        self.tvw = ttk.Treeview(self.frame, show="headings", columns=colunas)
-        self.tvw.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-
-        # ------CABEÇALHO
-        self.tvw.heading('Nome', text='Nome')
+        self.tvw = ttk.Treeview(self.frm, show="headings", columns=colunas, height=13)
+        self.tvw.pack()
+        self.tvw.heading('Nomes', text='Nome')
         self.tvw.heading('Vitorias', text='Vitorias')
         self.tvw.heading('Derrotas', text='Derrotas')
-
-        self.tvw.column('Nome', minwidth=0, width=150)
-        self.tvw.column('Vitorias', minwidth=0, width=80)
-        self.tvw.column('Derrotas', minwidth=0, width=80)
-
-        # ---------EXEMPLOS INSERIDOS MANUALMENTE
-        self.tvw.insert("", 'end', values=('Rogerio', 0,0))
-        self.tvw.insert("", 'end', values=('Machon', '0','0'))
-        self.tvw.insert("", 'end', values=('Maicow Jacks', '0','0'))
-
-        # -----------SCROLLBAR
-        self.scr = tk.Scrollbar(self.frame, command=self.tvw.yview).pack(side=tk.RIGHT, fill=tk.Y)
-
-        # ------------BOTÕES NO FRAME BOTOES
-
-        self.btn = tk.Button(self.btn_frm, text="+", command=self.incrementar)
-        self.btn.pack(side=tk.LEFT)
-
-    def incrementar(self):
-        select = self.tvw.selection()
-        select[1]+=1
-
-        self.btn_min = tk.Button(self.btn_frm, text="-")
-        self.btn_min.pack(side=tk.RIGHT)
-
-        #------------MAIS E MENOS BUTTON
+        self.tvw.column('Nomes', minwidth=0, width=300)
+        self.tvw.column('Vitorias', minwidth=0, width=100)
+        self.tvw.column('Derrotas', minwidth=0, width=100)
 
 
+        for i in range(1):
+            self.tvw.insert('', 'end', values=['Trapper',0, 0])
 
+#--------------BUTTONS E LABELS
+        self.btn_vic = tk.Button(self.frm_btn, text="Vitoria +", bg="dodger blue", height=2, width=10, command=self.incrementar_vic)
+        self.btn_vic.pack(side=tk.LEFT)
+        self.btn_der = tk.Button(self.frm_btn, text="Derrota +", bg="dodger blue", height=2, width=10, command=self.incrementar_der)
+        self.btn_der.pack(side=tk.LEFT)
 
+        self.btn_vic_min = tk.Button(self.frm_btn, text="Vitoria -", bg="pale violet red", height=2, width=10, command=self.decrementar_vic)
+        self.btn_vic_min.pack(side=tk.LEFT)
+        self.btn_der_min = tk.Button(self.frm_btn, text="Derrota -", bg="pale violet red", height=2, width=10, command=self.decrementar_der)
+        self.btn_der_min.pack(side=tk.LEFT)
 
+    def incrementar_vic(self):
+        selecionado = self.tvw.selection()
+        itens = self.tvw.item(selecionado, 'values')
+        vic = int(itens[1])
+        vic += 1
+        nome = itens[0]
+        derrotas = itens[2]
+        self.tvw.item(selecionado, values=[nome,vic,derrotas])
+
+    def decrementar_vic(self):
+        selecionado = self.tvw.selection()
+        itens = self.tvw.item(selecionado, 'values')
+        vic = int(itens[1])
+        vic -= 1
+        nome = itens[0]
+        derrotas = itens[2]
+        self.tvw.item(selecionado, values=[nome, vic, derrotas])
+
+    def incrementar_der(self):
+        selecionado = self.tvw.selection()
+        itens = self.tvw.item(selecionado, 'values')
+        vic = itens[1]
+        nome = itens[0]
+        derrotas = int(itens[2])
+        derrotas += 1
+        self.tvw.item(selecionado, values=[nome, vic, derrotas])
+
+    def decrementar_der(self):
+        selecionado = self.tvw.selection()
+        itens = self.tvw.item(selecionado, 'values')
+        vic = itens[1]
+        nome = itens[0]
+        derrotas = int(itens[2])
+        derrotas -= 1
+        self.tvw.item(selecionado, values=[nome, vic, derrotas])
 
 app = tk.Tk()
 Tela(app)
