@@ -10,38 +10,38 @@ except:
     pass
 banco = sqlite3.connect('Data/Data.db')
 cursor = banco.cursor()
-cursor.execute("CREATE TABLE if not exists banco (image text, nome text, vitorias integer, derrotas integer)")
+cursor.execute("CREATE TABLE if not exists banco (nome text, vitorias integer, derrotas integer)")
 cursor.execute("SELECT * FROM banco")
 killers = cursor.fetchall()
 if (len(killers)) <= 0:
-    cursor.execute("INSERT INTO banco VALUES('icons/trapper.png','Trapper', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('icons/wraith.png','Wraith', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Nurse', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Shape/Myers', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('icons/hag.png','Hag', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Doctor', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Huntress', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Cannibal', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Pig', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Clown', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Nightmare', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Spirit', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Legion', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Plague', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Oni', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Ghost Face', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Demogorgon', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Executioner', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Blight', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Deathslinger', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Twins', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Trickster', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Nemesis', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Onryō', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Cenobite', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Artist', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Mastermind', 0, 0)")
-    cursor.execute("INSERT INTO banco VALUES('','Dredge', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Trapper', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Wraith', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Nurse', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Shape/Myers', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Hag', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Doctor', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Huntress', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Cannibal', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Pig', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Clown', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Nightmare', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Spirit', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Legion', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Plague', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Oni', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Ghost Face', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Demogorgon', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Executioner', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Blight', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Deathslinger', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Twins', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Trickster', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Nemesis', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Onryō', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Cenobite', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Artist', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Mastermind', 0, 0)")
+    cursor.execute("INSERT INTO banco VALUES('Dredge', 0, 0)")
 
 banco.commit()
 
@@ -83,22 +83,25 @@ class Tela:
         self.tvw.column('Derrotas', minwidth=0, width=80)
         self.scr = tk.Scrollbar(self.frm, command=self.tvw.yview).pack(side=tk.RIGHT, fill=tk.Y)
 
-        cursor.execute("SELECT * FROM banco")
-        dados = cursor.fetchall()
+        self.att_tabela()
+        
+        # cursor.execute("SELECT * FROM banco")
+        # dados = cursor.fetchall()
        
-        try:
-            lista_imagens = []
-            for any in dados:
+        # try:
+        #     lista_imagens = []
+        #     for any in dados:
                 
-                if any[0] != '':
-                    self.image = Image.open(f'{any[0]}')
-                    img = ImageTk.PhotoImage(self.image)
-                    lista_imagens.append(img)
-                    self.tvw.insert('','end', image=img)
-                    self.tvw.insert('','end', image=img , values=(any[1],any[2],any[3]))
+        #         if any[0] != '':
+        #             self.image = Image.open(f'{any[0]}')
+        #             img = ImageTk.PhotoImage(self.image)
+        #             lista_imagens.append(img)
+        #             self.tvw.insert('','end', image=img)
+        #             self.tvw.insert('','end',values=())
                     
-        except:
-            print('ERRO')
+        # except:
+        #     print('ERRO')
+        
 
 #--------------BUTTONS E LABELS
         self.btn_vic = tk.Button(self.frm_btn, text="Vitoria +", bg="dodger blue", height=2, width=10, command=self.incrementar_vic)
@@ -110,6 +113,46 @@ class Tela:
         self.btn_vic_min.grid(row=1, column=0)
         self.btn_der_min = tk.Button(self.frm_btn, text="Derrota -", bg="pale violet red", height=1, width=10, command=self.decrementar_der)
         self.btn_der_min.grid(row=1, column=1)
+
+    def att_tabela(self):
+        cursor.execute("SELECT * FROM banco")
+        dados = cursor.fetchall()
+
+        self.imagetrapper = Image.open(f'icons/trapper.png')
+        self.imgtrapper = ImageTk.PhotoImage(self.imagetrapper)
+        self.imagewraith = Image.open(f'icons/wraith.png')
+        self.imgwraith = ImageTk.PhotoImage(self.imagewraith)
+        self.imagehag = Image.open(f'icons/hag.png')
+        self.imghag = ImageTk.PhotoImage(self.imagehag)
+
+        self.tvw.insert('','end', image=self.imgtrapper ,values=(dados[0]))
+        self.tvw.insert('','end', image=self.imgwraith, values=(dados[1]))
+        self.tvw.insert('','end',values=(dados[2]))
+        self.tvw.insert('','end',values=(dados[3]))
+        self.tvw.insert('','end', image=self.imghag, values=(dados[4]))
+        self.tvw.insert('','end',values=(dados[5]))
+        self.tvw.insert('','end',values=(dados[6]))
+        self.tvw.insert('','end',values=(dados[7]))
+        self.tvw.insert('','end',values=(dados[8]))
+        self.tvw.insert('','end',values=(dados[9]))
+        self.tvw.insert('','end',values=(dados[10]))
+        self.tvw.insert('','end',values=(dados[11]))
+        self.tvw.insert('','end',values=(dados[12]))
+        self.tvw.insert('','end',values=(dados[13]))
+        self.tvw.insert('','end',values=(dados[14]))
+        self.tvw.insert('','end',values=(dados[15]))
+        self.tvw.insert('','end',values=(dados[16]))
+        self.tvw.insert('','end',values=(dados[17]))
+        self.tvw.insert('','end',values=(dados[18]))
+        self.tvw.insert('','end',values=(dados[19]))
+        self.tvw.insert('','end',values=(dados[20]))
+        self.tvw.insert('','end',values=(dados[21]))
+        self.tvw.insert('','end',values=(dados[22]))
+        self.tvw.insert('','end',values=(dados[23]))
+        self.tvw.insert('','end',values=(dados[24]))
+        self.tvw.insert('','end',values=(dados[25]))
+        self.tvw.insert('','end',values=(dados[26]))
+        self.tvw.insert('','end',values=(dados[27]))
 
     def incrementar_vic(self):
         selecionado = self.tvw.selection()
