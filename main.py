@@ -16,7 +16,7 @@ killers = cursor.fetchall()
 lista_killers = ['Trapper', 'Wraith','Nurse','Shape,Myers','Hag','Doctor','Huntress','Cannibal','Pig','Clown','Nightmare','Spirit','Legion','Plage','Oni','Ghost Face','Demogorgon','Executioner','Blight','Deathslinger','Twins','Trickster','Nemesis','Onryō','Cenobite','Artist','Dredge','Mastermind']
 if (len(killers)) <= 0:
     for any in lista_killers:
-        cursor.execute("INSERT INTO banco VALUES(any, 0, 0)")
+        cursor.execute(f"INSERT INTO banco VALUES('{any}', 0, 0)")
 
 banco.commit()
 
