@@ -23,7 +23,7 @@ banco.commit()
 class Tela:
     def __init__(self, master):
         self.janela = master
-        self.janela.geometry("720x420")
+        self.janela.geometry("820x520")
         #self.janela.minsize(720,420)
         #self.janela.maxsize(720,420)
         self.janela.title("Registrador de vitorias DeadByDaylight")
@@ -46,7 +46,7 @@ class Tela:
         self.frm_btn = tk.Frame(self.janela)
         self.frm_btn.place(relx=0.4,rely=0.83)    
 
-        self.tvw = ttk.Treeview(self.frm, columns=colunas, height=8)
+        self.tvw = ttk.Treeview(self.frm, columns=colunas, height=10)
         self.tvw.pack(side=tk.LEFT)
 
         self.tvw.heading('Nomes', text='Nome')
