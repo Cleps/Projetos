@@ -76,17 +76,19 @@ class Tela:
         cursor.execute("SELECT * FROM banco")
         dados = cursor.fetchall()
         lista=[]
-        lista_enderecos = ['icons/trapper.png', 'icons/wraith.png','icons/hag.png']
-        
-        for k in range(3):
+        nomes = ['trapper', 'wraith', 'nurse','myers','hag','doctor','huntress','cannibal','pig', 'clown','nightmare', 'spirit', 'legion', 'plage', 'oni', 'ghostface','demogorgon','executioner','blight','deathslingher','twins','trickster','nemesis','onryo','cenobite','artist','dredge','mastermind']
+        lista_enderecos = []
+        for any in nomes:
+            lista_enderecos.append(f'icons/{any}.png')
+
+        for k in range(28):
             exec(f'self.img_{k} = ImageTk.PhotoImage(Image.open(f"{lista_enderecos[k]}"))')
             exec(f'lista.append(self.img_{k})')
 
         cont = 0
         for any in dados:
             self.tvw.insert('','end', image=lista[cont] ,values=(any))
-            print(cont)
-            if cont<2:
+            if cont<27:
                 cont+=1
 
 
