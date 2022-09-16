@@ -26,7 +26,7 @@ class Tela:
         self.janela.geometry("720x420")
         #self.janela.minsize(720,420)
         #self.janela.maxsize(720,420)
-        self.janela.title("BDB Registrer")
+        self.janela.title("Registrador de vitorias DeadByDaylight")
 #-----------TEMA -- EDIÇÃO DOS STYLES
         s = ttk.Style()
         s.theme_use('clam')
@@ -58,24 +58,7 @@ class Tela:
         self.tvw.column('Derrotas', minwidth=0, width=80)
         self.scr = tk.Scrollbar(self.frm, command=self.tvw.yview).pack(side=tk.RIGHT, fill=tk.Y)
 
-        self.att_tabela()
-        
-        # cursor.execute("SELECT * FROM banco")
-        # dados = cursor.fetchall()
-       
-        # try:
-        #     lista_imagens = []
-        #     for any in dados:
-                
-        #         if any[0] != '':
-        #             self.image = Image.open(f'{any[0]}')
-        #             img = ImageTk.PhotoImage(self.image)
-        #             lista_imagens.append(img)
-        #             self.tvw.insert('','end', image=img)
-        #             self.tvw.insert('','end',values=())
-                    
-        # except:
-        #     print('ERRO')
+        self.att_tabela() #atualizando a tabela
         
 
 #--------------BUTTONS E LABELS
@@ -88,46 +71,24 @@ class Tela:
         self.btn_vic_min.grid(row=1, column=0)
         self.btn_der_min = tk.Button(self.frm_btn, text="Derrota -", bg="pale violet red", height=1, width=10, command=self.decrementar_der)
         self.btn_der_min.grid(row=1, column=1)
-
+        
     def att_tabela(self):
         cursor.execute("SELECT * FROM banco")
         dados = cursor.fetchall()
+        lista=[]
+        lista_enderecos = ['icons/trapper.png', 'icons/wraith.png','icons/hag.png']
+        
+        for k in range(3):
+            exec(f'self.img_{k} = ImageTk.PhotoImage(Image.open(f"{lista_enderecos[k]}"))')
+            exec(f'lista.append(self.img_{k})')
 
-        self.imagetrapper = Image.open(f'icons/trapper.png')
-        self.imgtrapper = ImageTk.PhotoImage(self.imagetrapper)
-        self.imagewraith = Image.open(f'icons/wraith.png')
-        self.imgwraith = ImageTk.PhotoImage(self.imagewraith)
-        self.imagehag = Image.open(f'icons/hag.png')
-        self.imghag = ImageTk.PhotoImage(self.imagehag)
+        cont = 0
+        for any in dados:
+            self.tvw.insert('','end', image=lista[cont] ,values=(any))
+            print(cont)
+            if cont<2:
+                cont+=1
 
-        self.tvw.insert('','end', image=self.imgtrapper ,values=(dados[0]))
-        self.tvw.insert('','end', image=self.imgwraith, values=(dados[1]))
-        self.tvw.insert('','end',values=(dados[2]))
-        self.tvw.insert('','end',values=(dados[3]))
-        self.tvw.insert('','end', image=self.imghag, values=(dados[4]))
-        self.tvw.insert('','end',values=(dados[5]))
-        self.tvw.insert('','end',values=(dados[6]))
-        self.tvw.insert('','end',values=(dados[7]))
-        self.tvw.insert('','end',values=(dados[8]))
-        self.tvw.insert('','end',values=(dados[9]))
-        self.tvw.insert('','end',values=(dados[10]))
-        self.tvw.insert('','end',values=(dados[11]))
-        self.tvw.insert('','end',values=(dados[12]))
-        self.tvw.insert('','end',values=(dados[13]))
-        self.tvw.insert('','end',values=(dados[14]))
-        self.tvw.insert('','end',values=(dados[15]))
-        self.tvw.insert('','end',values=(dados[16]))
-        self.tvw.insert('','end',values=(dados[17]))
-        self.tvw.insert('','end',values=(dados[18]))
-        self.tvw.insert('','end',values=(dados[19]))
-        self.tvw.insert('','end',values=(dados[20]))
-        self.tvw.insert('','end',values=(dados[21]))
-        self.tvw.insert('','end',values=(dados[22]))
-        self.tvw.insert('','end',values=(dados[23]))
-        self.tvw.insert('','end',values=(dados[24]))
-        self.tvw.insert('','end',values=(dados[25]))
-        self.tvw.insert('','end',values=(dados[26]))
-        self.tvw.insert('','end',values=(dados[27]))
 
     def incrementar_vic(self):
         selecionado = self.tvw.selection()
@@ -136,7 +97,7 @@ class Tela:
         vic += 1
         nome = itens[0]
         derrotas = itens[2]
-        cursor.execute("UPDATE banco SET vitorias = '"+str(vic)+"' WHERE nome = '"+nome+"'")
+        cursor.execute(f"UPDATE banco SET vitorias = '{str(vic)}' WHERE nome = '{nome}'")
         banco.commit()
         self.tvw.item(selecionado, values=[nome,vic,derrotas]) 
 
