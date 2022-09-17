@@ -2,6 +2,7 @@ import os
 import tkinter as tk
 from tkinter import ttk, PhotoImage
 import sqlite3
+from turtle import width
 from PIL import Image, ImageTk
 #----------database
 try:
