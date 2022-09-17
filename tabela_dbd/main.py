@@ -23,7 +23,7 @@ banco.commit()
 class Tela:
     def __init__(self, master):
         self.janela = master
-        self.janela.geometry("720x420")
+        self.janela.geometry("820x520")
         #self.janela.minsize(720,420)
         #self.janela.maxsize(720,420)
         self.janela.title("Registrador de vitorias DeadByDaylight")
@@ -46,7 +46,7 @@ class Tela:
         self.frm_btn = tk.Frame(self.janela)
         self.frm_btn.place(relx=0.4,rely=0.83)    
 
-        self.tvw = ttk.Treeview(self.frm, columns=colunas, height=8)
+        self.tvw = ttk.Treeview(self.frm, columns=colunas, height=10)
         self.tvw.pack(side=tk.LEFT)
 
         self.tvw.heading('Nomes', text='Nome')
@@ -76,16 +76,19 @@ class Tela:
         cursor.execute("SELECT * FROM banco")
         dados = cursor.fetchall()
         lista=[]
-        lista_enderecos = ['icons/trapper.png', 'icons/wraith.png','icons/hag.png']
+        nomes = ['trapper', 'wraith', 'nurse','myers','hag','doctor','huntress','cannibal','pig', 'clown','nightmare', 'spirit', 'legion', 'plage', 'oni', 'ghostface','demogorgon','executioner','blight','deathslingher','twins','trickster','nemesis','onryo','cenobite','artist','dredge','mastermind']
+        lista_enderecos = []
+        for any in nomes:
+            lista_enderecos.append(f'icons/{any}.png')
 
-        for k in range(3):
+        for k in range(28):
             exec(f'self.img_{k} = ImageTk.PhotoImage(Image.open(f"{lista_enderecos[k]}"))')
             exec(f'lista.append(self.img_{k})')
 
         cont = 0
         for any in dados:
             self.tvw.insert('','end', image=lista[cont] ,values=(any))
-            if cont<2:
+            if cont<27:
                 cont+=1
 
 
