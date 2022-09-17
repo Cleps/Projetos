@@ -31,7 +31,7 @@ class Tela:
         s = ttk.Style()
         s.theme_use('clam')
 #---------pra ficar GROSSO
-        s.configure('Treeview', rowheight=40)
+        s.configure('Treeview', rowheight=53)
 
         self.img = Image.open('icons/wallpp.jpg')
         self.imagem = ImageTk.PhotoImage(self.img)
@@ -40,14 +40,17 @@ class Tela:
         self.lbl_img.place(relx=-0.2,rely=-0.2) 
 
         colunas = ['Nomes', 'Vitorias', 'Derrotas']
-        self.frm = tk.Frame(self.janela)
-        self.frm.place(relx=0.1, rely=0)
 
-        self.frm_btn = tk.Frame(self.janela)
-        self.frm_btn.place(relx=0.4,rely=0.83)    
+        self.frm = tk.Frame(self.janela) # --------- frame twv
+        self.frm.place(relx=0.15, rely=0.)
 
-        self.tvw = ttk.Treeview(self.frm, columns=colunas, height=10)
+        self.frm_btn = tk.Frame(self.janela) #  -----frame butons
+        self.frm_btn.place(relx=0.42,rely=0.87)    
+
+        self.tvw = ttk.Treeview(self.frm, columns=colunas, height=8)
+        
         self.tvw.pack(side=tk.LEFT)
+        
 
         self.tvw.heading('Nomes', text='Nome')
         self.tvw.heading('Vitorias', text='Vitorias')
@@ -56,7 +59,10 @@ class Tela:
         self.tvw.column('Nomes', minwidth=0, width=200)
         self.tvw.column('Vitorias', minwidth=0, width=80)
         self.tvw.column('Derrotas', minwidth=0, width=80)
-        self.scr = tk.Scrollbar(self.frm, command=self.tvw.yview).pack(side=tk.RIGHT, fill=tk.Y)
+
+        self.scr = tk.Scrollbar(self.frm, command=self.tvw.yview, orient ="vertical")
+        self.scr.pack(side=tk.RIGHT, fill=tk.Y)
+        self.tvw.configure(yscrollcommand = self.scr.set)
 
         self.att_tabela() #atualizando a tabela
         
