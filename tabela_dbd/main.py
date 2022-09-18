@@ -25,8 +25,8 @@ class Tela:
     def __init__(self, master):
         self.janela = master
         self.janela.geometry("650x520")
-        #self.janela.minsize(720,420)
-        #self.janela.maxsize(720,420)
+        self.janela.minsize(650,520)
+        self.janela.maxsize(650,520)
         self.janela.title("Registrador de vitorias DeadByDaylight")
 #-----------TEMA -- EDIÇÃO DOS STYLES
         s = ttk.Style()
@@ -43,10 +43,10 @@ class Tela:
         colunas = ['Nomes', 'Vitorias', 'Derrotas']
 
         self.frm = tk.Frame(self.janela) # --------- frame twv
-        self.frm.place(relx=0.15, rely=0.)
+        self.frm.place(relx=0.15, rely=0)
 
         self.frm_btn = tk.Frame(self.janela) #  -----frame butons
-        self.frm_btn.place(relx=0.4,rely=0.87)    
+        self.frm_btn.place(relx=0.35,rely=0.87)    
 
         self.tvw = ttk.Treeview(self.frm, columns=colunas, height=8)
         self.tvw.tag_configure('bold', font=('Roboto Light',12), foreground='grey30') # ---- CONFIGURANDO ESTILO
