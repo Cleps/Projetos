@@ -1,21 +1,14 @@
-import sys
-try:
-    from PIL import Image
-except ImportError:
-    import Image
+from tkinter import *
+from tkinter.ttk import *
 
-try:
-    largura_desejada = int(sys.argv[2])
-    imagem = Image.open(str(sys.argv[1]))
 
-    largura_imagem = imagem.size[0]
-    altura_imagem = imagem.size[1]
-    percentual_largura = float(largura_desejada) / float(largura_imagem)
-    altura_desejada = int((altura_imagem * percentual_largura))
-
-    imagem = imagem.resize((largura_desejada, altura_desejada), Image.ANTIALIAS)
-    imagem.save('imagem-{}x{}.png'.format(imagem.size[0], imagem.size[1]))
-
-except IndexError:
-    print('Insira o nome da imagem e 1 inteiro com a largura desejada.')
-    print('Exemplo: C:\>python proporcional_img.py imagem.png 300')
+root = Tk()
+tree = Treeview(root, selectmode="extended", columns=("A", "B"))
+tree.pack(expand=YES, fill=BOTH)
+tree.heading("#0", text="C/C++ compiler")
+tree.column("#0", minwidth=0, width=100, stretch=NO)
+tree.heading("A", text="A")
+tree.column("A", minwidth=0, width=200, stretch=NO) 
+tree.heading("B", text="B")
+tree.column("B", minwidth=0, width=300)
+root.mainloop()
