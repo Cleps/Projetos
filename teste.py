@@ -36,8 +36,8 @@ def generate_images(prompt, model, api_key):
     return response_text['data'][0]['url']
 
 prompt = "anime draw of a cat chasing mouse"
-model = "DALL-E"
-openai.api_key = "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"
+model = "image-alpha-001"
+openai.api_key = "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"
 
 # Gerar imagem usando o DALL-E
 image_url = generate_images(prompt, model, openai.api_key)
@@ -49,4 +49,4 @@ response = requests.get(image_url)
 image = Image.open(io.BytesIO(response.content))
 
 # Salvar imagem em um arquivo .png
-image.save("image.png")
+image.save("image1.png")
