@@ -50,3 +50,6 @@ image = Image.open(io.BytesIO(response.content))
 
 # Salvar imagem em um arquivo .png
 image.save("image1.png")
+
+
+#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
