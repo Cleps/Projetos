@@ -35,21 +35,23 @@ def generate_images(prompt, model, api_key):
     response_text = json.loads(resp.text)
     return response_text['data'][0]['url']
 
-prompt = "anime draw of a cat chasing mouse"
-model = "image-alpha-001"
-openai.api_key = "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"
-
-# Gerar imagem usando o DALL-E
-image_url = generate_images(prompt, model, openai.api_key)
-
-# Fazer download da imagem
-response = requests.get(image_url)
-
-# Carregar imagem em um objeto de imagem
-image = Image.open(io.BytesIO(response.content))
-
-# Salvar imagem em um arquivo .png
-image.save("image1.png")
+#prompt = "a snowshoe cat with a gray and white fur"
 
 
-#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
+def gerar(prompt):
+    model = "image-alpha-001"
+    openai.api_key = "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"
+    for i in range (5):
+        # Gerar imagem usando o DALL-E
+        image_url = generate_images(prompt, model, openai.api_key)
+
+        # Fazer download da imagem
+        response = requests.get(image_url)
+
+        # Carregar imagem em um objeto de imagem
+        image = Image.open(io.BytesIO(response.content))
+
+        # Salvar imagem em um arquivo .png
+        image.save(f"imagea{i}.png")
+
+    print('\n\n\n\nDONE!')
