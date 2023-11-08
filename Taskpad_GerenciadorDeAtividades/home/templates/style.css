@@ -1,0 +1,317 @@
+body {
+    background-color: rgb(21, 21, 21) !important;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+    color: white !important;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+    max-width: 97%;
+}
+
+
+.user-avatar {
+    width: 30px;
+    /* Largura do círculo */
+    height: 30px;
+    /* Altura do círculo */
+    background-color: #007BFF;
+    /* Cor de fundo do círculo (azul, você pode mudar para a cor desejada) */
+    color: #fff;
+    /* Cor do texto (branco) */
+    text-align: center;
+    /* Alinhar o texto ao centro do círculo */
+    border-radius: 50%;
+    /* Criar um círculo usando border-radius */
+    font-weight: bold;
+    /* Texto em negrito */
+    font-size: 18px;
+    /* Tamanho da fonte */
+    line-height: 30px;
+    /* Centralizar verticalmente o texto */
+    margin-right: 10px;
+    /* Espaçamento à direita para separar do texto "Bem-vindo" */
+}
+
+
+/* Classe para alinhar conteúdo NÃO TEXTO*/
+.align-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+.texto-contorno {
+    text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000;
+}
+
+
+/* para a caixinha onde fica as listas*/
+.bg-claro_style {
+    background-color: #222222 !important;
+}
+
+.bg-cinza_style {
+    background-color: #ffffff !important;
+    margin: 0.5% !important;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.lista-title {
+    background-color: #151515 !important;
+    padding: 2%;
+    padding-top: 5%;
+    margin: 0.3em;
+    border-radius: 2px;
+    margin-bottom: 0.5em;
+}
+
+/* para os botões de criar */
+.pastel-button {
+    background-color: #3d3d3d !important;
+    color: #fff !important;
+    border: 1px solid white !important;
+    /* Define uma borda de 1 pixel de largura e branca */
+}
+
+.salvar-button {
+    background-color: #957cf0 !important;
+    color: #ffffff !important;
+    border: 1px solid white !important;
+    margin: 1% !important;
+    margin-left: 5em !important;
+}
+
+.exportar-botao {
+    background-color: #3d3d3d !important;
+    color: #ffffff !important;
+    border: 1px solid white !important;
+    margin-left: 1% !important;
+    margin: 1% !important;
+}
+
+.pastel-button2 {
+    /* Lista */
+    background-color: #646464 !important;
+    color: #fff !important;
+    margin-top: 0.125em !important;
+    margin-bottom: 0.125em !important;
+}
+
+.pastel-button2a {
+    /* setinha da Lista, sim, estava usando a classe acima como id, entao preciso de uma so p estilização pois estava ocasionando bugs. nao retire */
+    background-color: #646464 !important;
+    color: #fff !important;
+    margin-top: 0.125em !important;
+    margin-bottom: 0.125em !important;
+}
+
+.pastel-button3 {
+    /* PRA Atividade */
+    background-color: #444444 !important;
+    color: #fff !important;
+    margin-top: 0.125em !important;
+    margin-bottom: 0.125em !important;
+
+}
+
+.pastel-button3a {
+    /* PRA setinha da Atividade */
+    background-color: #444444 !important;
+    color: #fff !important;
+    margin-top: 0.125em !important;
+    margin-bottom: 0.125em !important;
+}
+
+.pastel-button4 {
+    /* TAREFA */
+    background-color: #262626 !important;
+    color: #ffffff !important;
+    margin-top: 0.125em !important;
+    margin-bottom: 0.125em !important;
+
+}
+
+
+/*  CLASSE DEFASADA, NAO USAR
+.lista-aberta {
+    background-color: #b586fc !important; 
+    color: #ffff !important; 
+}
+*/
+
+/* Estilo para os botões dentro da div com a classe custom-button-row */
+.lista-aberta-row button {
+    background-color: #b586fc !important;
+    color: #ffff !important;
+}
+
+
+.context-menu {
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    z-index: 9999;
+}
+
+.context-menu-item {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+.context-menu-item:hover {
+    background-color: #f2f2f2;
+}
+
+/* CSS para a div de boas-vindas e resumo do dia */
+.boasVindas {
+    padding: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-family: 'Franklin Gothic Medium' !important;
+}
+
+.resumoDia {
+    /* font-weight: bold;  */
+    font-family: 'Franklin Gothic Medium' !important;
+}
+
+
+.prioridade-indicador {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.prioridade-indicador.verde {
+    background-color: green;
+}
+
+.prioridade-indicador.amarelo {
+    background-color: yellow;
+}
+
+.prioridade-indicador.vermelho {
+    background-color: red;
+}
+
+
+
+/* Classes para o calendário p ver se desbuga sapoha */
+.calendario-personalizado {
+    background-color: white;
+    border: 1px solid #ddd;
+    /* borda cinza */
+    color: #333;
+    font-family: Arial, sans-serif;
+    width: 65em;
+    height: 45em;
+    padding: 1%;
+}
+
+.bloco-calendario {
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-top: 2%;
+}
+
+/*cor do cabeçalho do calendário */
+.calendario-personalizado .fc-header-toolbar {
+    background-color: #f0f0f0;
+    border: none;
+}
+
+/*cor dos botões de navegação do calendário */
+.calendario-personalizado .fc-header-button {
+    background-color: #f0f0f0;
+    color: #333;
+    border: none;
+}
+
+/*cor do hover dos botões de navegação do calendário */
+.calendario-personalizado .fc-header-button:hover {
+    background-color: #e0e0e0;
+}
+
+/* cor dos eventos no calendário */
+.calendario-personalizado .fc-event {
+    background-color: #b586fc;
+    border: none;
+    color: white;
+}
+
+/*cor do hover dos eventos no calendário */
+.calendario-personalizado .fc-event:hover {
+    background-color: #b586fc;
+}
+
+/*cor do fundo da célula de data selecionada */
+.calendario-personalizado .fc-day.selected {
+    background-color: #b586fc;
+    color: white;
+}
+
+/*cor do hover da célula de data no calendário */
+.calendario-personalizado .fc-day:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* classe pro item filtrado nao ficar bugado */
+
+/* classe pro item filtrado nao ficar bugado */
+.lista-filtrado {
+    border: 1px solid rgb(255, 255, 255) !important;
+    margin-left: 6% !important;
+    flex-basis: calc((100% / 10 * 10) + 15%);
+    min-width: calc((100% / 10 * 10) + 15%);
+
+}
+
+/* classe pro item filtrado nao ficar bugado */
+.atividade-filtrado {
+    border: 1px solid rgb(255, 255, 255) !important;
+    margin-left: 6% !important;
+    flex-basis: calc((100% / 10 * 10) + 15%);
+    min-width: calc((100% / 10 * 10) + 15%);
+
+}
+
+.max-height-list {
+    max-height: 600px;
+    /* Defina a altura máxima desejada */
+    overflow-y: auto;
+    /* Torna a lista rolável quando necessário */
+}
+
+.select.form-select {
+    color: black;
+}
+
+.overflow {
+    width: 95px;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    text-overflow: ellipsis;
+}
+
+.btn-criar {
+    background-color: #4f7cc1 !important;
+    color: #ffffff !important;
+    margin-bottom: 0.1em !important;
+    margin-top: 0.1em !important;
+}

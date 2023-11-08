@@ -1,0 +1,100 @@
+{% load static %}
+
+<div class="bg-claro_style p-3 rounded max-height-list" style="text-align: left;">
+    <!--   CONTINUAÇÃO   -->
+    <div class="align-content">
+        <div class="list-group col-md-12 ">
+            {% for lista in listas %}
+            <!-- Butoes de listas -->
+            <div class="row">
+                <div class="col-md-2 setinha" style="padding-right: 0%;">
+                    <button class="com-borda list-group-item list-group-item-action pastel-button2a border-end-0"
+                        data-bs-toggle="collapse" data-bs-target="#lista{{ lista.id }}">
+                        <img src="{% static 'home/templates/ico-open.png' %}" alt="Ícone de Abrir"
+                            style="max-width: 15px; max-height: 40px; flex-direction: column; justify-content: center; align-items: center;">
+                    </button>
+                </div>
+                <div class="col-md-10" style="padding-left: 0%;">
+                    <button class="overflow itemobjeto list-group-item list-group-item-action pastel-button2 border-start-0"
+                        data-conteudo="{{ lista.texto }}" data-item-id="{{ lista.id }}" data-object-type="lista"
+                        onclick="marcarListaAbertarow(this.parentElement.parentElement)"
+                        data-nome-tarefa="{{ lista.nome }}" data-descricao="{{ lista.descricao }}"
+                        data-ordem="{{ forloop.counter }}" data-data-inicio="{{ lista.dataInicio }}"
+                        data-data-fim="{{ lista.dataFim }}" data-prioridade="{{ lista.prioridade }}">
+                        <span
+                            class="prioridade-indicador {% if lista.prioridade == 1 %}verde{% elif lista.prioridade == 2 %}amarelo{% else %}vermelho{% endif %}"></span>
+                        {{ lista.nome }}
+                    </button>
+                </div>
+            </div>
+
+            <div id="lista{{ lista.id }}" class="collapse">
+                <div class="list-group">
+                    {% for atividade in lista.atividade_set.all %}
+
+                    <div class="row">
+                        <div class="col-md-2 setinha" style="padding-right: 0%;">
+                            <button
+                                class="com-borda list-group-item list-group-item-action pastel-button3a border-end-0"
+                                data-bs-toggle="collapse" data-bs-target="#atividade{{ atividade.id }}">
+                                <img src="{% static 'home/templates/ico-open.png' %}" alt="Ícone de Abrir"
+                                    style="max-width: 15px; max-height: 20px;flex-direction: column;justify-content:center;align-items:center;">
+                            </button>
+                        </div>
+                        <div class="col-md-10" style="padding-left: 0%;">
+                            <!-- BOTEI NOME TAREFA LA EMBAIXO AGORA VAI FICAR NOME TAREFA EM TODOS -->
+                            <button
+                                class="overflow itemobjeto list-group-item list-group-item-action pastel-button3 border-start-0"
+                                data-conteudo="{{ atividade.texto }}" data-item-id="{{ atividade.id }}"
+                                data-object-type="atividade" data-nome-tarefa="{{ atividade.nome }}"
+                                data-descricao="{{ atividade.descricao }}" data-data-inicio="{{ atividade.dataInicio }}"
+                                data-data-fim="{{ atividade.dataFim }}" data-prioridade="{{ atividade.prioridade }}"
+                                data-ordem="{{ forloop.counter }}"
+                                onclick="marcarListaAbertarow(this.parentElement.parentElement)">
+                                <span
+                                    class="prioridade-indicador {% if atividade.prioridade == 1 %}verde{% elif atividade.prioridade == 2 %}amarelo{% else %}vermelho{% endif %}"></span>
+                                {{ atividade.nome }}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="atividade{{ atividade.id }}" class="collapse">
+                        <div class="list-group">
+
+                            {% for tarefa in atividade.tarefa_set.all %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button
+                                        class="itemobjeto com-borda list-group-item list-group-item-action pastel-button4"
+                                        data-conteudo="{{ tarefa.texto }}" data-item-id="{{ tarefa.id }}"
+                                        data-object-type="tarefa" data-nome-tarefa="{{ tarefa.nome }}"
+                                        data-descricao="{{ tarefa.descricao }}"
+                                        data-data-inicio="{{ tarefa.dataInicio }}" data-data-fim="{{ tarefa.dataFim }}"
+                                        data-prioridade="{{ tarefa.prioridade }}" data-ordem="{{ forloop.counter }}"
+                                        onclick="marcarListaAbertarow(this.parentElement.parentElement)">
+                                        <span
+                                            class="prioridade-indicador {% if tarefa.prioridade == 1 %}verde{% elif tarefa.prioridade == 2 %}amarelo{% else %}vermelho{% endif %}"></span>
+                                        {{ tarefa.nome }}
+                                    </button>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                            <button class="btn-criar btn btn-criar-tarefa pastel-button"
+                                data-atividade-id="{{ atividade.id }}" data-bs-toggle="modal"
+                                data-bs-target="#criarTarefaModal">
+                                Criar Tarefa
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <button class="btn-criar btn btn-criar-atividade pastel-button" data-lista-id="{{ lista.id }}"
+                        data-bs-toggle="modal" data-bs-target="#criarAtividadeModal">
+                        Criar Atividade
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

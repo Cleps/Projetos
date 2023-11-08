@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'usuarios/templates/style.css' %}">
+
+</head>
+
+<body>
+    <div class="purple-footer">
+        <h1>Taskpad</h1>
+    </div>
+    <div class="texto-login">
+        <p>Crie relatórios profissionais de forma rápida e fácil.</p>
+    </div>
+    <div class="container">
+
+
+
+        <div class="div-login box">
+            <h2>Login</h2>
+            <form class="text-center" action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                </ul>
+                {% endif %}
+
+
+                <input class="form-login" type="text" name="username" placeholder="Usuário">
+                <input class="form-login" type="password" name="senha" placeholder="Senha">
+                <input class="botao-login" type="submit" value="ENTRAR">
+                <hr>
+                <p class="text-center">OU <a href="http://127.0.0.1:8000/auth/cadastro/">CADASTRE-SE</a></p>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        // Função para remover automaticamente as mensagens após 5 segundos
+        setTimeout(function () {
+            var messages = document.querySelectorAll('.messages li');
+            for (var i = 0; i < messages.length; i++) {
+                messages[i].style.display = 'none';
+            }
+        }, 5000); // 5000 milissegundos = 5 segundos
+    </script>
+
+</body>
+
+</html>

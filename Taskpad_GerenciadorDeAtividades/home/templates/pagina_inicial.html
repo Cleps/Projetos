@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+    <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taskpad</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'home/templates/style.css' %}">
+    <!-- link para o CSS do Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Fonte Awesome sla mano to com sono -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        crossorigin="anonymous">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <!-- FULL CALENDAR-->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'home/templates/favicon.ico' %}">
+
+    <!-- jquery? -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/a994b9db28.js" crossorigin="anonymous"></script>
+
+
+
+</head>
+
+<body>
+    <!-- Div com um Logout e logo -->
+    <div class="row w-100" style="margin-left: 2%;">
+        <div class="bg-claro_style d-flex justify-content-between align-items-center rounded">
+            <div class="bg-cinza_style rounded">
+                <h3 style="color: rgb(150, 90, 206);" class="texto-contorno">Taskpad</h3>
+            </div>
+            <div class="d-flex align-items-center">
+
+                <button type="button" onclick="mostrarDiv(this)" class="btn">
+                    <img src="{% static 'home/templates/calendarioroxo.png' %}" alt="Ícone de Calendário"
+                        class="icone-grande">
+                </button>
+
+                <div class="btn-group">
+                    <button type="button" class="btn " data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="user-avatar">{{ request.user.username|first|upper }}</div>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <!-- <li><span class="dropdown-item-text">Bem-vindo, {{ request.user.username }}</span></li> -->
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row w-100" style="margin-left: 0px !important; margin-right: 0px !important; flex-wrap: nowrap;">
+
+
+        <!---      DIV DAS LISTAS         -->
+        <div class="col-md-2 bg-claro_style" style="margin: 1%; flex-direction: column; min-height: 85vh;">
+
+            <!--full-height-row-->
+            <div class="bg-claro_style p-3 rounded " style="text-align: left;">
+
+                <!-- CAIXA DE PESQUISA-->
+                <div class="col-md-12" style="margin: 2%; margin-bottom: 6%;">
+                    <input type="text" id="searchInput" class="form-control"
+                        placeholder="Buscar lista, atividade ou tarefa.">
+                </div>
+
+                <!-- TITULO -->
+                <div class="lista-title">
+                    <h4 style="text-align: center; font-size:17px;">LISTAS DE ATIVIDADES</h4>
+                </div>
+                <div class="row align-content">
+                    <div class="col-md-12">
+                        <button type="button" class="btn-criar pastel-button btn col-md-12" data-bs-toggle="modal"
+                            data-bs-target="#criarListaModal">
+                            Criar Lista
+                        </button>
+                        <!-- Caixa de seleção para filtrar por critério -->
+                        <form id="ordenarForm" method="post" action="{% url 'ordenar_itens' %}">
+                            {% csrf_token %}
+                            <div class="mb-3" style="margin-bottom: -20px !important; margin-top: 2%;">
+                                <select class="form-select" name="ordenarPor" id="ordenarPor">
+                                    <option value="semOrdem" {% if ordem == 'semOrdem' %}selected{% endif %}>Sem Ordem</option>
+                                    <option value="dataAsc" {% if ordem == 'dataAsc' %}selected{% endif %}>Data (Crescente)</option>
+                                    <option value="dataDesc" {% if ordem == 'dataDesc' %}selected{% endif %}>Data (Decrescente)</option>
+                                    <option value="prioridadeAsc" {% if ordem == 'prioridadeAsc' %}selected{% endif %}>Prioridade (Crescente)</option>
+                                    <option value="prioridadeDesc" {% if ordem == 'prioridadeDesc' %}selected{% endif %}>Prioridade (Decrescente)</option>
+                                    <option value="nomeAsc" {% if ordem == 'nomeAsc' %}selected{% endif %}>Nome (Crescente)</option>
+                                    <option value="nomeDesc" {% if ordem == 'nomeDesc' %}selected{% endif %}>Nome (Decrescente)</option>
+                                </select>
+                                
+                            </div>
+                        </form>
+
+                        <!--  fim do botao de caixa de seleção -->
+                    </div>
+                </div>
+            </div>
+            {% include 'modals.html' %}
+            <div id='lista-itens' >
+            {% include 'listas.html' %}
+            </div>
+            <!-- Formulário para enviar dados de atualização -->
+            <form id="updateForm" method="post" action="{% url 'atualizar_item' %}">
+                {% csrf_token %}
+                <input type="hidden" name="object_type" id="updateObjectTypeInput" value="">
+                <input type="hidden" name="item_id" id="updateItemIdInput" value="">
+
+            </form>
+
+            <!-- para enviar os dados para excluir os itens -->
+            <form id="deleteForm" method="post" action="{% url 'deletar_item' %}">
+                {% csrf_token %}
+                <input type="hidden" name="objectType" id="objectTypeInput">
+                <input type="hidden" name="itemId" id="itemIdInput">
+            </form>
+
+        </div>
+
+        <!-- CALENDARIO -->
+        <div id="divCalendario" class="col-md-10 bg-claro_style"
+            style="padding: 1%; margin-top: 1%; margin-bottom: 1%; display: none;">
+            <div class="bloco-calendario">
+                <div id="calendario" class="calendario-personalizado"></div>
+            </div>
+        </div>
+
+        <!-- MENSAGEM DE BOAS VINDAS +--->
+
+        <div id="boasVindas" class="col-md-10 bg-claro_style" style="padding: 1%; margin-top: 1%; margin-bottom: 1%;">
+            <div>
+                <div class="resumoDia">
+                    Seu resumo do dia <span id="dataAtual"></span>
+                </div>
+                <div class="boasVindas">
+                    <h1>Ola, {{ request.user.username }}!</h1>
+                    <p>Bem-vindo ao Taskpad! Selecione um item para começar a editar.</p>
+                    <p style="margin-bottom: 5%;">Clique em "Criar Lista" para criar uma nova Lista de Atividades.</p>
+                    <img src="{% static 'home/templates/escrevendo-branco.png' %}"
+                        style="max-width: 150px; max-height: 150px;" alt="Imagem de lista">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Forms, ISSO AQUI É O FORMS DO EDITOR CKEDITOR "TEXTAREA" -->
+
+        <div class="col-md-10 " style="padding-top: 1%; display: none;" id="ckeditor-id">
+
+            <form method="post" action="{% url 'atualizar_conteudo' %}" id="meuFormulario"
+                class="bg-claro_style p-3 rounded" style="flex-direction: column; min-height: 85vh;">
+                {% csrf_token %}
+
+                <!-- Formulário para criar uma nova lista -->
+                <input type="hidden" id="item_id" name="object_id">
+                <input type="hidden" id="object_type" name="object_type">
+                <!-- Campo oculto para o tipo de objeto -->
+                <div style="margin-left: 2cm; margin-right: 2cm;">
+                    <textarea id="conteudo_atividade" name="conteudo_atividade" style="display: none;"></textarea>
+                </div>
+
+                <!-- Botão de envio do formulário -->
+                <button type="button" class="btn salvar-button" id="atualizarConteudo">Salvar</button>
+
+                <input type="hidden" name="exportar" id="exportar" value="false">
+                <button type="button" class="btn exportar-botao" id="exportar-botao">
+                    Exportar
+                    <img src="{% static 'home/templates/arquivo-docx.png' %}" alt="Ícone de Calendário"
+                        style="width: 25px;">
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+    <!-- outros conteúdos da página -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts JS-->
+    <script src="{% static 'home/templates/pagina_inicial.js' %}"></script>
+
+</body>
+
+</html>

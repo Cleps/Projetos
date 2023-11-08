@@ -1,0 +1,135 @@
+openapi: 3.0.3
+info:
+  title: Taskpad API
+  version: 1.0.0
+  description: Uma API para gerenciamento de atividades.
+paths:
+  /criar_atividade/:
+    post:
+      operationId: criar_atividade_create
+      description: Cria uma nova atividade.
+      tags:
+      - criar_atividade
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+              description: Unspecified request body
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              additionalProperties: {}
+              description: Unspecified request body
+          multipart/form-data:
+            schema:
+              type: object
+              additionalProperties: {}
+              description: Unspecified request body
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+                description: Unspecified response body
+          description: ''
+  /criar_lista/:
+    post:
+      operationId: criar_lista_create
+      description: Cria uma nova lista.
+      tags:
+      - criar_lista
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+              description: Unspecified request body
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              additionalProperties: {}
+              description: Unspecified request body
+          multipart/form-data:
+            schema:
+              type: object
+              additionalProperties: {}
+              description: Unspecified request body
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+                description: Unspecified response body
+          description: ''
+  /criar_tarefa/:
+    post:
+      operationId: criar_tarefa_create
+      description: Cria uma nova tarefa.
+      tags:
+      - criar_tarefa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+              description: Unspecified request body
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              additionalProperties: {}
+              description: Unspecified request body
+          multipart/form-data:
+            schema:
+              type: object
+              additionalProperties: {}
+              description: Unspecified request body
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+                description: Unspecified response body
+          description: ''
+  /deletar_item/:
+    post:
+      operationId: deletar_item_create
+      tags:
+      - deletar_item
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
